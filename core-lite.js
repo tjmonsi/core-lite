@@ -43,6 +43,16 @@ class CoreLite extends window.HTMLElement {
       this._router = this.querySelector('router-lite');
       this._loader = this.querySelector('template-loader-lite');
       
+      if (!this._router) {
+        this._router = document.createElement('router-lite');
+        this.appendChild(this._router);
+      }
+      
+      if (!this._loader) {
+        this._loader = document.createElement('template-loader-lite');
+        this.appendChild(this._loader);
+      }
+      
       if (this._location) {
         this._location.addEventListener('path-change', this._boundPathChanged);
         this._location.addEventListener('query-change', this._boundQueryChanged);
