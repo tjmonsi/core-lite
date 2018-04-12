@@ -1,0 +1,26 @@
+{
+  "name": "@littleq/core-lite",
+  "version": "0.0.1-0",
+  "description": "Core lite",
+  "main": "core-lite.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjmonsi/core-lite.git"
+  },
+  "author": "TJ Monserrat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjmonsi/core-lite/issues"
+  },
+  "homepage": "https://github.com/tjmonsi/core-lite#readme",
+  "dependencies": {
+    "@littleq/location-lite": "^0.1.3",
+    "@littleq/query-lite": "^0.1.1",
+    "@littleq/router-lite": "^0.1.1-2",
+    "@littleq/template-loader-lite": "0.0.2-1",
+    "@littleq/template-viewer-lite": "0.0.2-1"
+  }
+}
