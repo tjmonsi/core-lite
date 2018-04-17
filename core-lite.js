@@ -1,7 +1,7 @@
 import '../location-lite/location-lite.js';
 import '../query-lite/query-lite.js';
 import '../router-lite/router-lite.js';
-import '../router-lite/router-data-lite.js';
+import '../router-lite/route-data-lite.js';
 import '../template-loader-lite/template-loader-lite.js';
 import '../template-viewer-lite/template-viewer-lite.js';
 import '../template-viewer-lite/template-container-lite.js';
