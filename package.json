@@ -1,6 +1,6 @@
 {
   "name": "@littleq/core-lite",
-  "version": "0.0.2-3",
+  "version": "0.0.2",
   "description": "Core lite",
   "main": "core-lite.js",
   "scripts": {
