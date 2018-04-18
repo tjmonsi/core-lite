@@ -24,7 +24,7 @@
     "@littleq/location-lite": "^0.1.3",
     "@littleq/query-lite": "^0.1.1",
     "@littleq/router-lite": "^0.1.1-4",
-    "@littleq/template-loader-lite": "0.0.2-2",
-    "@littleq/template-viewer-lite": "0.0.2-3"
+    "@littleq/template-loader-lite": "0.0.2-3",
+    "@littleq/template-viewer-lite": "0.0.2-4"
   }
 }
