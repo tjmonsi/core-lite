@@ -19,7 +19,7 @@ class CoreLite extends window.HTMLElement {
   static get is () {
     return 'core-lite';
   }
-  
+
   constructor () {
     super();
     this.__initialized = false;
@@ -32,58 +32,65 @@ class CoreLite extends window.HTMLElement {
     this._boundQueryChanged = this._queryChanged.bind(this);
     this._boundHashChanged = this._hashChanged.bind(this);
     this._boundQueryObjectChanged = this._queryObjectChanged.bind(this);
-    this._boundRouterParamObjectChanged = this._routerParamObjectChanged.bind(this);
+    this._boundRouteParamObjectChanged = this._routeParamObjectChanged.bind(this);
     this._boundCurrentRouteChanged = this._currentRouteChanged.bind(this);
     this._boundTemplateChanged = this._templateChanged.bind(this);
+    this.path = '';
+    this.query = '';
+    this.hash = '';
+    this.currentRoute = '';
+    this.template = null;
+    this.routeParamObject = {};
+    this.queryObject = {};
     this.attachShadow({mode: 'open'});
   }
-  
+
   connectedCallback () {
     if (!this.__initialized) {
       this._router = this.querySelector('router-lite');
       this._loader = this.querySelector('template-loader-lite');
-      
+
       if (!this._router) {
         this._router = document.createElement('router-lite');
         this.appendChild(this._router);
       }
-      
+
       if (!this._loader) {
         this._loader = document.createElement('template-loader-lite');
         this.appendChild(this._loader);
       }
-      
+
       if (this._location) {
         this._location.addEventListener('path-change', this._boundPathChanged);
         this._location.addEventListener('query-change', this._boundQueryChanged);
-        this._location.addEventListener('hash-change', this._boundHashChanged);  
+        this._location.addEventListener('hash-change', this._boundHashChanged);
         this.shadowRoot.appendChild(this._location);
       }
-      
+
       if (this._query) {
         this._query.addEventListener('query-change', this._boundQueryChanged);
-        this._query.addEventListener('query-object-change', this._boundQueryObjectChanged);  
+        this._query.addEventListener('query-object-change', this._boundQueryObjectChanged);
         this.shadowRoot.appendChild(this._query);
       }
-      
+
       if (this._router) {
-        this._router.addEventListener('router-param-object-change', this._boundRouterParamObjectChanged);
-        this._router.addEventListener('current-route-change', this._boundCurrentRouteChanged);  
+        this._router.addEventListener('route-param-object-change', this._boundRouteParamObjectChanged);
+        this._router.addEventListener('current-route-change', this._boundCurrentRouteChanged);
       }
-      
+
       if (this._loader) {
-        this._loader.addEventListener('template-change', this._boundTemplateChanged);  
+        this._loader.addEventListener('template-change', this._boundTemplateChanged);
       }
-      
+
       if (this._viewer) {
-        this.shadowRoot.appendChild(this._viewer);  
+        this.shadowRoot.appendChild(this._viewer);
       }
-      
+
       this.shadowRoot.appendChild(document.createElement('slot'));
     }
     this.__initialized = this._location && this._query && this._router && this._loader && this._viewer && true;
   }
-  
+
   disconnectedCallback () {
     if (this._location) {
       this._location.removeEventListener('path-change', this._boundPathChanged);
@@ -92,17 +99,17 @@ class CoreLite extends window.HTMLElement {
     }
     if (this._query) {
       this._query.removeEventListener('query-change', this._boundQueryChanged);
-      this._query.removeEventListener('query-object-change', this._boundQueryObjectChanged);  
+      this._query.removeEventListener('query-object-change', this._boundQueryObjectChanged);
     }
     if (this._router) {
-      this._router.removeEventListener('router-param-object-change', this._boundRouterParamObjectChanged);
-      this._router.removeEventListener('current-route-change', this._boundCurrentRouteChanged);  
+      this._router.removeEventListener('route-param-object-change', this._boundRouteParamObjectChanged);
+      this._router.removeEventListener('current-route-change', this._boundCurrentRouteChanged);
     }
     if (this._loader) {
-      this._loader.removeEventListener('template-change', this._boundTemplateChanged);  
+      this._loader.removeEventListener('template-change', this._boundTemplateChanged);
     }
   }
-  
+
   _pathChanged (event) {
     if (this.__initialized) {
       const { detail: path } = event;
@@ -110,12 +117,12 @@ class CoreLite extends window.HTMLElement {
       event.preventDefault();
       event.stopPropagation();
       this.path = path;
-      this._dispatchEvent('path', this.path);  
+      this._dispatchEvent('path', this.path);
     } else {
       console.warn('core-lite is not initialized');
     }
   }
-  
+
   _queryChanged (event) {
     if (this.__initialized) {
       const { detail: query } = event;
@@ -124,12 +131,12 @@ class CoreLite extends window.HTMLElement {
       event.preventDefault();
       event.stopPropagation();
       this.query = query;
-      this._dispatchEvent('query', this.query);  
+      this._dispatchEvent('query', this.query);
     } else {
       console.warn('core-lite is not initialized');
     }
   }
-  
+
   _hashChanged (event) {
     if (this.__initialized) {
       const { detail: hash } = event;
@@ -141,7 +148,7 @@ class CoreLite extends window.HTMLElement {
       console.warn('core-lite is not initialized');
     }
   }
-  
+
   _queryObjectChanged (event) {
     if (this.__initialized) {
       const { detail: queryObject } = event;
@@ -153,19 +160,19 @@ class CoreLite extends window.HTMLElement {
       console.warn('core-lite is not initialized');
     }
   }
-  
-  _routerParamObjectChanged (event) {
+
+  _routeParamObjectChanged (event) {
     if (this.__initialized) {
-      const { detail: routerParamObject } = event;
+      const { detail: routeParamObject } = event;
       event.preventDefault();
       event.stopPropagation();
-      this.routerParamObject = routerParamObject;
-      this._dispatchEvent('router-param-object', this.routerParamObject);
+      this.routeParamObject = routeParamObject;
+      this._dispatchEvent('router-param-object', this.routeParamObject);
     } else {
       console.warn('core-lite is not initialized');
     }
   }
-  
+
   _currentRouteChanged (event) {
     if (this.__initialized) {
       const { detail: currentRoute } = event;
@@ -175,10 +182,10 @@ class CoreLite extends window.HTMLElement {
       this.currentRoute = currentRoute;
       this._dispatchEvent('current-route', this.currentRoute);
     } else {
-      console.warn('core-lite is not initialized'); 
+      console.warn('core-lite is not initialized');
     }
   }
-  
+
   _templateChanged (event) {
     if (this.__initialized) {
       const { detail: template } = event;
@@ -188,10 +195,10 @@ class CoreLite extends window.HTMLElement {
       this.template = template;
       this._dispatchEvent('template', this.template);
     } else {
-      console.warn('core-lite is not initialized');  
+      console.warn('core-lite is not initialized');
     }
   }
-  
+
   _dispatchEvent (name, detail) {
     this.dispatchEvent(new window.CustomEvent(`${name}-change`, { detail }));
   }
